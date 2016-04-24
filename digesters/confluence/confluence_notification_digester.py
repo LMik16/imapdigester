@@ -153,7 +153,7 @@ class ConfluenceNotificationDigester(BaseDigester):
     def add_line_for_notifications_seen_already(self):
         num_messages_since_last_seen = 0
         line_here_done = False
-        for ts0, notif in sorted(self.confluence_notifications.iteritems(), reverse=False):
+        for ts0, notif in sorted(self.confluence_notifications.items(), reverse=False):
             if self.most_recently_seen != 0 and ts0 >= self.most_recently_seen and line_here_done is False:
                 notif['line_here'] = True
                 line_here_done = True
@@ -170,7 +170,7 @@ class ConfluenceNotificationDigester(BaseDigester):
         return self.confluence_short_name + ' Confluence Notif. Rollup'
 
     def print_summary(self):
-        print "Confluence: New Confluence notifications: " + str(self.new_message_count)
+        print("Confluence: New Confluence notifications: " + str(self.new_message_count))
 
     def make_new_raw_email(self, email_html, count, sender_to_implicate):
 

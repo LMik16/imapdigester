@@ -121,7 +121,7 @@ class LinkedinInvitationDigester(BaseDigester):
     def add_line_for_invitations_seen_already(self):
         num_messages_since_last_seen = 0
         line_here_done = False
-        for ts0, inv in sorted(self.linkedin_invitations.iteritems(), reverse=False):
+        for ts0, inv in sorted(self.linkedin_invitations.items(), reverse=False):
             if self.most_recently_seen != 0 and ts0 >= self.most_recently_seen and line_here_done == False:
                 inv['line_here'] = True
                 line_here_done = True
@@ -139,7 +139,7 @@ class LinkedinInvitationDigester(BaseDigester):
         return 'Linkedin Inv. Rollup'
 
     def print_summary(self):
-        print "Linkedin: New Linkedin invitations: " + str(self.new_message_count)
+        print("Linkedin: New Linkedin invitations: " + str(self.new_message_count))
 
     def get_template_start_and_end(self, template):
         template_start = template[:template.find("<InsertHere/>")]

@@ -8,7 +8,7 @@ class BankOfAmericaNotificationDigester(BaseChargeCardDigester):
         self.new_notifs = 0
 
     def print_summary(self):
-        print "New Bank Of America Charges: " + str(self.new_notifs)
+        print("New Bank Of America Charges: " + str(self.new_notifs))
 
     def matching_incoming_headers(self):
         return ["From: alerts@bankofamerica.com"]

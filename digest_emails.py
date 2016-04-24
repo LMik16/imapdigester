@@ -36,15 +36,12 @@ def check_for_command(cmd):
     messages = rollup_folder.search('SUBJECT "%s"' % cmd)
     response = rollup_folder.fetch(messages, ['FLAGS', 'RFC822.SIZE'])
     retval = False
-    for msgid, data in response.iteritems():
+    for msgid, data in response.items():
         rollup_folder.delete_messages([msgid])
         retval = True
     return retval
 
 if __name__ == '__main__':
-
-    reload(sys)
-    sys.setdefaultencoding('utf8')
 
     # Command Line Args
 
@@ -73,14 +70,14 @@ if __name__ == '__main__':
     (options, args) = parser.parse_args()
 
     if options.notifications_pw is None:
-        print "Enter notifications user password:"
+        print("Enter notifications user password:")
         options.notifications_pw = getpass.getpass()
 
     if options.rollup_pw is None:
         if options.notifications_imap == options.rollup_imap and options.notifications_user == options.rollup_user:
             options.rollup_pw = options.notifications_pw
         else:
-            print "Enter rollup user password:"
+            print("Enter rollup user password:")
             options.rollup_pw = getpass.getpass()
 
     # Read and mark for deletion items from notification inbox.
@@ -88,7 +85,7 @@ if __name__ == '__main__':
     try:
         notification_folder = IMAPClient(options.notifications_imap, use_uid=True, ssl=True)
     except gaierror:
-        print "CAN'T FIND IMAP SERVER"
+        print("CAN'T FIND IMAP SERVER")
         exit(10)
     try:
         notification_folder.login(options.notifications_user, options.notifications_pw)
@@ -98,7 +95,7 @@ if __name__ == '__main__':
         try:
             notification_folder.login(options.notifications_user, options.notifications_pw)
         except:
-            print "CAN'T LOG IN to IN IMAP SERVER"
+            print("CAN'T LOG IN to IN IMAP SERVER")
             exit(10)
     time.sleep(1)
     notification_folder.select_folder(options.notifications_folder_name)

@@ -129,7 +129,7 @@ class HipchatNotificationDigester(BaseDigester):
         return 'Hipchat Rollup'
 
     def print_summary(self):
-        print "Hipchat: New hipchat notifications: " + str(self.new_message_count)
+        print("Hipchat: New hipchat notifications: " + str(self.new_message_count))
 
     def get_template_start_and_end(self, template):
         template_start = template[:template.find("<InsertHere/>")]

@@ -22,7 +22,7 @@ class RollupServer(object):
             self.rollup_inbox.append(self.rollup_folder_name, message)
         except UnicodeEncodeError:
             # Found this with attempts to utf-8 encode, but not utf-7
-            print ">>>>UnicodeError>>>>" + message + "\n\n"
+            print(">>>>UnicodeError>>>>" + message + "\n\n")
             raise
 
 
@@ -47,8 +47,10 @@ class DigestionProcessor(object):
         to_delete = []
 
         # Loop through email in notification folder
-        for msgid, data in response.iteritems():
-            rfc822content = self.notification_folder.fetch(msgid, ["INTERNALDATE", "BODY", "RFC822"])[msgid]['RFC822']
+        for msgid, data in response.items():
+            msgid_ = self.notification_folder.fetch(msgid, ["INTERNALDATE", "BODY", "RFC822"])[msgid]
+            print("ks " + str(msgid_.keys()))
+            rfc822content = msgid_['RFC822']
             self.process_incoming_notification(msgid, self.digesters, rfc822content, to_delete,
                                                unmatched_to_move, self.move_unmatched)
 
@@ -64,7 +66,7 @@ class DigestionProcessor(object):
             response = self.rollup_folder.fetch(messages, ['FLAGS', 'RFC822.SIZE'])
             previously_seen = False
             previous_message_id = None
-            for msgid, data in response.iteritems():
+            for msgid, data in response.items():
                 previous_message_id = msgid
                 previously_seen = '\\Seen' in data[b'FLAGS']
             rollup_inbox_proxy = RollupServer(self.rollup_folder, previous_message_id, self.rollup_folder_name)
@@ -110,4 +112,4 @@ class DigestionProcessor(object):
                 unmatched_to_move.append(rfc822content)
                 to_delete.append(msgid)
             else:
-                print "Unmatched email from: " + msg['From'].strip() + ", subject: " + msg['Subject'].strip()
+                print("Unmatched email from: " + msg['From'].strip() + ", subject: " + msg['Subject'].strip())

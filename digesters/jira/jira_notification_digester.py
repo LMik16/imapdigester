@@ -66,8 +66,6 @@ class JiraNotificationDigester(BaseDigester):
                     k_and_v = kv.split(":")
                     key_vals.append({ "k" : k_and_v[0].strip(), "v" : k_and_v[1].strip() })
 
-            print ">> " + str(soup) + "<<"
-
             project_td = soup.find("td", {"class": "page-title-pattern-first-line"})
             if project_td:
                 project_td_anchors = project_td.find_all("a")
@@ -187,7 +185,7 @@ class JiraNotificationDigester(BaseDigester):
     def add_line_for_notifications_seen_already(self):
         num_messages_since_last_seen = 0
         line_here_done = False
-        for ts0, notif in sorted(self.jira_notifications.iteritems(), reverse=False):
+        for ts0, notif in sorted(self.jira_notifications.items(), reverse=False):
             if self.most_recently_seen != 0 and ts0 >= self.most_recently_seen and line_here_done is False:
                 notif['line_here'] = True
                 line_here_done = True
@@ -204,7 +202,7 @@ class JiraNotificationDigester(BaseDigester):
         return self.jira_short_name + ' Jira Notif. Rollup'
 
     def print_summary(self):
-        print "Jira: New Jira notifications: " + str(self.new_message_count)
+        print("Jira: New Jira notifications: " + str(self.new_message_count))
 
     def make_new_raw_email(self, email_html, count, sender_to_implicate):
 

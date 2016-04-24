@@ -90,4 +90,4 @@ class ChaseNotificationDigester(BaseChargeCardDigester):
         return ["Subject: (.*) Alert from Chase"]
 
     def print_summary(self):
-        print "New Chase Messages/Charges: " + str(self.new_chase)
+        print("New Chase Messages/Charges: " + str(self.new_chase))

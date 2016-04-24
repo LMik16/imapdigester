@@ -142,6 +142,6 @@ class StackExchangeNotificationDigester(BaseDigester):
         return 'S/Exchg Rollup for \'' + self.filter_name + '\''
 
     def print_summary(self):
-        print "StackExchange: New StackExchange messages: " + str(
+        print("StackExchange: New StackExchange messages: " + str(
             self.new_message_count) + ", new articles: ?, " + "deleted articles (email was marked as read): " + str(
-            self.deleted_articles_count)
+            self.deleted_articles_count))
